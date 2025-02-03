@@ -16,10 +16,8 @@
         
         <!-- Formulario para enviar el email -->
         <div class="email_form">
-            <h2>Envíame un mensaje</h2>
-            <input type="text" id="name" placeholder="Tu Nombre" required>
+            <h2>te quiero enviar un mensaje 🥰</h2>
             <input type="email" id="email" placeholder="Tu Email" required>
-            <textarea id="message" placeholder="Escribe tu mensaje aquí..." required></textarea>
             <button id="sendEmailBtn">Enviar</button>
         </div>
     </div>
@@ -30,27 +28,21 @@
         })();
 
         document.getElementById("sendEmailBtn").addEventListener("click", function() {
-            const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
-            const message = document.getElementById("message").value;
 
-            if (!name || !email || !message) {
-                alert("Por favor completa todos los campos.");
+            if (!email) {
+                alert("Por favor pon tu email.");
                 return;
             }
 
             const templateParams = {
-                from_name: name,
                 from_email: email,
-                message: message
             };
 
             emailjs.send("service21", "template_yjdmwli", templateParams)
                 .then(response => {
                     alert("Correo enviado con éxito 🎉");
-                    document.getElementById("name").value = "";
                     document.getElementById("email").value = "";
-                    document.getElementById("message").value = "";
                 })
                 .catch(error => console.error("Error al enviar email:", error));
         });
