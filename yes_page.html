@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Knew you would say yes!</title>
     <link rel="stylesheet" href="./yes_style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -12,6 +13,47 @@
         <div class="gif_container">
             <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3c3l5ODh3ZGN6NHhhaDE2Mjg1ZjkwOXczdDFxbWM3dTBtaW9zaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/9XY4f3FgFTT4QlaYqa/giphy.gif">
         </div>
+        
+        <!-- Formulario para enviar el email -->
+        <div class="email_form">
+            <h2>Envíame un mensaje</h2>
+            <input type="text" id="name" placeholder="Tu Nombre" required>
+            <input type="email" id="email" placeholder="Tu Email" required>
+            <textarea id="message" placeholder="Escribe tu mensaje aquí..." required></textarea>
+            <button id="sendEmailBtn">Enviar</button>
+        </div>
     </div>
+
+    <script>
+        (function() {
+            emailjs.init("g9prldH6-TaUMSSKl"); // Reemplaza con tu Public Key de EmailJS
+        })();
+
+        document.getElementById("sendEmailBtn").addEventListener("click", function() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+
+            if (!name || !email || !message) {
+                alert("Por favor completa todos los campos.");
+                return;
+            }
+
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                message: message
+            };
+
+            emailjs.send("service21", "template_yjdmwli", templateParams)
+                .then(response => {
+                    alert("Correo enviado con éxito 🎉");
+                    document.getElementById("name").value = "";
+                    document.getElementById("email").value = "";
+                    document.getElementById("message").value = "";
+                })
+                .catch(error => console.error("Error al enviar email:", error));
+        });
+    </script>
 </body>
 </html>
